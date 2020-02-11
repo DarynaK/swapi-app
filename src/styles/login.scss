@@ -1,41 +1,76 @@
-.login-form-containers {
-  width: 600px;
-  margin: 0 auto;
-  display: flex;
-  .form-container {
-    height: 100vh;
-    flex: 1;
-    position: relative;
-    overflow-y: hidden;
-    .login-wrapper {
-      background: aliceblue;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: .5s ease;
-    }
-    .overlay.login-wrapper {
-      left: -173px;
-    }
-    .sign-up-wrapper {
-      width: 100%;
-      background: aliceblue;
-      position: absolute;
-      top: 0;
-      right: -300px;
-      transition: .5s ease;
-    }
+.login-page {
+  height: 71vh;
 
-    .slide-away.sign-up-wrapper {
-      right: 0;
+  .login-page-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    height: inherit;
+    .login-page-buttons {
+      button {
+        width: 10vw;
+        height: 3vh;
+        color: #000000;
+        border: none;
+        font-weight: 500;
+        font-size: 1.1em;
+        outline: none;
+        cursor: pointer;
+      }
+      .sign-up-button {
+        background: rgb(26, 101, 96);
+        border-bottom-left-radius: 17px;
+        border-top-left-radius: 17px;
+      }
+      .login-button {
+        background: rgb(157, 64, 28);
+        border-bottom-right-radius: 17px;
+        border-top-right-radius: 17px;
+      }
     }
-    form {
+    .login-form-containers {
+      width: 40vw;
+      height: 48vh;
+      margin: 0 auto;
       display: flex;
-      flex-direction: column;
+
+      .form-container {
+        flex: 1;
+        position: relative;
+        overflow-y: hidden;
+
+        .login-wrapper {
+          width: 20vw;
+          background: rgb(26, 101, 96);
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: .5s ease;
+        }
+
+        .overlay.login-wrapper {
+          left: -20vw;
+        }
+
+        .sign-up-wrapper {
+          width: 20vw;
+          background: rgb(157, 64, 28);
+          position: absolute;
+          top: 0;
+          right: -20vw;
+          transition: .5s ease;
+        }
+
+        .slide-away.sign-up-wrapper {
+          right: 0;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+      }
     }
   }
-}
-
-.login {
-  width: 600px;
 }

@@ -3,15 +3,36 @@
   margin: 0 auto;
   display: flex;
   .form-container {
+    height: 100vh;
     flex: 1;
-    background: aliceblue;
+    position: relative;
+    overflow-y: hidden;
+    .login-wrapper {
+      background: aliceblue;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: .5s ease;
+    }
+    .overlay.login-wrapper {
+      left: -173px;
+    }
+    .sign-up-wrapper {
+      width: 100%;
+      background: aliceblue;
+      position: absolute;
+      top: 0;
+      right: -300px;
+      transition: .5s ease;
+    }
+
+    .slide-away.sign-up-wrapper {
+      right: 0;
+    }
     form {
       display: flex;
       flex-direction: column;
     }
-  }
-  .sign-up {
-    opacity: 0;
   }
 }
 

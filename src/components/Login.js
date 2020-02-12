@@ -28,34 +28,26 @@ const Login = () => {
             <div className="login-page-form">
                 <div className="login-page-buttons">
                     <button className="sign-up-button" onClick={showSignUp}>Sign up</button>
-                    <button className="login-button" onClick={showLogin}>Login</button>
+                    <button className="login-button" onClick={showLogin}>Log in</button>
                 </div>
                 <div className="login-form-containers">
                     <div className="sign-up form-container">
                         <div className={classSignUp}>
-                            <p>Sign up if you haven't already</p>
                             <form className='submit-form'>
-                                <label htmlFor="name">First Name</label>
-                                <input type="text" name='name'/>
-                                <label htmlFor="last-name">Last Name</label>
-                                <input type="text" name='last-name'/>
-                                <label htmlFor="email">Email</label>
-                                <input type="email" name='email'/>
-                                <label htmlFor="password">Password</label>
-                                <input type="password" name='password'/>
-                                <input type="submit" value='Login'/>
+                                <input type="text" name='name' placeholder='First Name'/>
+                                <input type="text" name='last-name' placeholder='Last Name'/>
+                                <input type="email" name='email' placeholder='Email'/>
+                                <input type="password" name='password' placeholder='Password'/>
+                                <input type="submit" value='Submit'/>
                             </form>
                         </div>
                     </div>
                     <div className="login form-container">
                         <div className={classLogIn}>
-                            <p>Login</p>
                             <form className='login-form'>
-                                <label htmlFor="email">Email</label>
-                                <input type="email" name='email'/>
-                                <label htmlFor="password">Password</label>
-                                <input type="password" name='password'/>
-                                <input type="submit" value='Login'/>
+                                <input type="email" name='email' placeholder='Email'/>
+                                <input type="password" name='password' placeholder='Password'/>
+                                <input type="submit" value='Log in'/>
                             </form>
                         </div>
                     </div>

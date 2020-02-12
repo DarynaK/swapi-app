@@ -9,8 +9,8 @@
     height: inherit;
     .login-page-buttons {
       button {
-        width: 10vw;
-        height: 3vh;
+        width: 11vw;
+        height: 4vh;
         color: #000000;
         border: none;
         font-weight: 500;
@@ -19,30 +19,35 @@
         cursor: pointer;
       }
       .sign-up-button {
-        background: rgb(26, 101, 96);
+        background: rgb(157, 64, 28);
         border-bottom-left-radius: 17px;
         border-top-left-radius: 17px;
       }
       .login-button {
-        background: rgb(157, 64, 28);
+        background: rgb(26, 101, 96);
         border-bottom-right-radius: 17px;
         border-top-right-radius: 17px;
       }
     }
     .login-form-containers {
-      width: 40vw;
-      height: 48vh;
+      width: 58vw;
+      height: 54vh;
       margin: 0 auto;
       display: flex;
 
       .form-container {
+        height: inherit;
         flex: 1;
         position: relative;
         overflow-y: hidden;
+        &::-webkit-scrollbar {
+          display: none;
+        }
 
         .login-wrapper {
-          width: 20vw;
-          background: rgb(26, 101, 96);
+          width: 29vw;
+          height: inherit;
+          background: rgba(244, 244, 144, .2);
           position: absolute;
           top: 0;
           left: 0;
@@ -50,15 +55,16 @@
         }
 
         .overlay.login-wrapper {
-          left: -20vw;
+          left: -29vw;
         }
 
         .sign-up-wrapper {
-          width: 20vw;
-          background: rgb(157, 64, 28);
+          width: 29vw;
+          height: inherit;
+          background: rgba(244, 244, 144, .2);
           position: absolute;
           top: 0;
-          right: -20vw;
+          right: -29vw;
           transition: .5s ease;
         }
 
@@ -67,8 +73,39 @@
         }
 
         form {
+          height: inherit;
           display: flex;
           flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          input {
+            width: 85%;
+            padding: 13px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            border: 1px solid grey;
+            font-size: 17px;
+            outline: none;
+            cursor: pointer;
+          }
+          input[type='submit'] {
+            margin-bottom: 0;
+            background: rgb(26, 101, 96);
+            border: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            &:hover {
+              background: rgb(2, 105, 112);
+              color: #ffffff;
+            }
+          }
+        }
+
+        .submit-form input[type='submit']{
+          background: rgb(157, 64, 28);
+          &:hover {
+            background:  rgb(166, 65, 37);
+          }
         }
       }
     }

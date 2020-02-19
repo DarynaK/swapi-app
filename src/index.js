@@ -8,9 +8,10 @@ import { Provider } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { createStore, combineReducers, compose } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase';
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore';
+import {userSignUpReduces} from '../src/store/reducers/auth';
 
 const fbConfig = {
     apiKey: "AIzaSyAJcSTtdSEBJ54xhPN14XZ8C73THSyllgo",
@@ -33,10 +34,10 @@ firebase.firestore();
 const rootReducer = combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer,
+    userSignUpReduces
 });
 
-const initialState = {};
-const store = createStore(rootReducer, initialState);
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const rrfProps = {
     firebase,

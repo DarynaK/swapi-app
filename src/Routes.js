@@ -3,7 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Public from './components/Public';
 import Private from './components/Private';
 import Login from './components/Login';
-import Auth from './Auth';
+import { useSelector } from 'react-redux'
+
 const Router = (props) => (
     <Switch>
         <Route exact path='/public' component={Public}/>
@@ -12,11 +13,12 @@ const Router = (props) => (
     </Switch>
 );
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route
+const PrivateRoute = ({ component: Component, ...rest }) => {
+        const isLoggedIn = useSelector(state => state.firebase.profile.isEmpty);
+    return <Route
         {...rest}
         render={props =>
-            Auth.getAuth() ? (
+            !isLoggedIn ? (
                 <Component {...props} />
             ) : (
                 <Redirect
@@ -27,6 +29,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
             )
         }
     />
-);
+}
+;
 
 export default Router;

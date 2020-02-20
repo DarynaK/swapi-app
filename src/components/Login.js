@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import '../styles/login.scss';
 import { useFirebase } from 'react-redux-firebase';
 import {useDispatch} from 'react-redux';
-import {userSuccessSignUp, userFailureSignUp} from '../store/actions/auth';
+import {userSuccessSignUp, userFailureSignUp, userSuccessLogIn, userFailureLogIn} from '../store/actions/auth';
 
 const Login = () => {
     const firebase = useFirebase();
@@ -14,6 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [phone, setPhone] = useState('');
 
     const showSignUp = () => {
         setToggleLogin(true);
@@ -44,6 +45,10 @@ const Login = () => {
         setLastName(e.target.value);
     };
 
+    const getPhone = e => {
+        setPhone(e.target.value);
+    };
+
     const signUp = e => {
         e.preventDefault();
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -64,10 +69,16 @@ const Login = () => {
 
     const logIn = e => {
         e.preventDefault();
-
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(res => console.log('You are logged in'))
-            .catch(err => console.log('Something went wrong'));
+            .then(res => {
+                dispatch(userSuccessLogIn());
+                console.log('You are logged in', res)
+            })
+            .catch(err => {
+                dispatch(userFailureLogIn());
+                    console.log('Something went wrong', err.message)
+                }
+            );
     };
 
     return (
@@ -83,6 +94,7 @@ const Login = () => {
                             <form className='submit-form' onSubmit={signUp}>
                                 <input type="text" name='name' placeholder='First Name' value={name} onChange={getName}/>
                                 <input type="text" name='last-name' placeholder='Last Name' value={lastName} onChange={getLastName}/>
+                                <input type="text" name='phone' placeholder='Phone' value={phone} onChange={getPhone}/>
                                 <input type="email" name='email' placeholder='Email' value={email} onChange={getEmail}/>
                                 <input type="password" name='password' placeholder='Password' value={password} onChange={getPassword}/>
                                 <input type="submit" value='Submit'/>

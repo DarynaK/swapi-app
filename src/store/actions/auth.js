@@ -13,3 +13,21 @@ export const userFailureSignUp = err => {
         payload: err.message,
     }
 };
+
+export const userSuccessLogIn = () => {
+    return {
+        type: actions.SUCCESS_LOG_IN,
+    }
+};
+
+export const userFailureLogIn = () => {
+    return {
+        type: actions.FAILURE_LOG_IN,
+    }
+};
+
+export const userLogOut = () => {
+    return {
+        type: actions.LOG_OUT,
+    }
+};

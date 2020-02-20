@@ -1,12 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Auth from '../Auth';
 import '../styles/nav.scss';
+import {useFirebase} from "react-redux-firebase";
+import {useDispatch, useSelector} from 'react-redux';
+import {userLogOut} from '../store/actions/auth';
 
 const Header = () => {
-
-    const logout = () => {
-        Auth.signout();
+    const isLoggedIn = useSelector(state => state.firebase.profile.isEmpty);
+    const firebase = useFirebase();
+    const dispatch = useDispatch();
+    const logOut = () => {
+        firebase.auth().signOut()
+            .then(() => dispatch(userLogOut()));
     };
 
         return(
@@ -14,8 +19,8 @@ const Header = () => {
                 <Link to='/' >Home</Link>
                 <Link to='public' >Public</Link>
                 <Link to='private' >Private</Link>
-                <Link to='login' >Login</Link>
-                <button className='logout-button' onClick={logout}>Logout</button>
+                <Link to='login' style={{display:isLoggedIn?'block':'none'}}>Login</Link>
+                <button className='logout-button' style={{display:isLoggedIn?'none':'flex'}} onClick={logOut}>Logout</button>
             </div>
         );
 

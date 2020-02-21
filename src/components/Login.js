@@ -10,11 +10,28 @@ const Login = () => {
 
     const [toggleLogin, setToggleLogin] = useState(false);
     const [toggleSignUp, setToggleSignUp] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [formData, setFormData] = useState({
+        name: {
+            value: '',
+            error: '',
+        },
+        lastName: {
+            value: '',
+            error: '',
+        },
+        phone: {
+            value: '',
+            error: '',
+        },
+        email: {
+            value: '',
+            error: '',
+        },
+        password: {
+            value: '',
+            error: '',
+        },
+    });
 
     const showSignUp = () => {
         setToggleLogin(true);
@@ -29,47 +46,59 @@ const Login = () => {
     const classLogIn = toggleLogin?'login-wrapper overlay':'login-wrapper';
     const classSignUp = toggleSignUp?'sign-up-wrapper slide-away': 'sign-up-wrapper';
 
-    const getEmail = e => {
-        setEmail(e.target.value);
+    const getFormData = e => {
+        setFormData({
+            ...formData,
+            [e.target.name]: {
+                ...formData[e.target.name],
+                value: e.target.value,
+            },
+        });
     };
 
-    const getPassword = e => {
-        setPassword(e.target.value);
-    };
-
-    const getName = e => {
-        setName(e.target.value);
-    };
-
-    const getLastName = e => {
-        setLastName(e.target.value);
-    };
-
-    const getPhone = e => {
-        setPhone(e.target.value);
+    const formValidation = () => {
+        if (formData.name.value === '') {
+            setFormData({
+                ...formData,
+                name: {
+                    ...formData.name,
+                    error: 'hjk'
+                },
+            });
+        }else {
+            setFormData({
+                ...formData,
+                name: {
+                    ...formData.name,
+                    error: '',
+                },
+            });
+        }
     };
 
     const signUp = e => {
         e.preventDefault();
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(data => {
-                return firebase.firestore().collection('users').doc(data.user.uid).set({
-                    name: name,
-                    lastName: lastName,
-                    email: data.user.email,
-                });
-            })
-            .then(() => {
-                dispatch(userSuccessSignUp({name, lastName, email}));
-            })
-            .catch(err =>
-                dispatch(userFailureSignUp(err))
-            );
+      formValidation();
+
+        // firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
+        //     .then(data => {
+        //         return firebase.firestore().collection('users').doc(data.user.uid).set({
+        //             name: formData.name,
+        //             lastName: formData.lastName,
+        //             email: data.user.email,
+        //         });
+        //     })
+        //     .then(() => {
+        //         dispatch(userSuccessSignUp({name: formData.name, lastName: formData.lastName, email: formData.email}));
+        //     })
+        //     .catch(err =>
+        //         dispatch(userFailureSignUp(err))
+        //     );
     };
 
     const logIn = e => {
         e.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
             .then(res => {
                 dispatch(userSuccessLogIn());
                 console.log('You are logged in', res)
@@ -92,11 +121,12 @@ const Login = () => {
                     <div className="sign-up form-container">
                         <div className={classSignUp}>
                             <form className='submit-form' onSubmit={signUp}>
-                                <input type="text" name='name' placeholder='First Name' value={name} onChange={getName}/>
-                                <input type="text" name='last-name' placeholder='Last Name' value={lastName} onChange={getLastName}/>
-                                <input type="text" name='phone' placeholder='Phone' value={phone} onChange={getPhone}/>
-                                <input type="email" name='email' placeholder='Email' value={email} onChange={getEmail}/>
-                                <input type="password" name='password' placeholder='Password' value={password} onChange={getPassword}/>
+                                <input type="text" name='name' placeholder='First Name' value={formData.name.value} onChange={getFormData}/>
+                                {formData.name.error && <p>hjk</p>}
+                                <input type="text" name='lastName' placeholder='Last Name' value={formData.lastName.value} onChange={getFormData}/>
+                                <input type="text" name='phone' placeholder='Phone' value={formData.phone.value} onChange={getFormData}/>
+                                <input type="email" name='email' placeholder='Email' value={formData.email.value} onChange={getFormData}/>
+                                <input type="password" name='password' placeholder='Password' value={formData.password.value} onChange={getFormData}/>
                                 <input type="submit" value='Submit'/>
                             </form>
                         </div>
@@ -104,8 +134,8 @@ const Login = () => {
                     <div className="login form-container">
                         <div className={classLogIn} onSubmit={logIn}>
                             <form className='login-form'>
-                                <input type="email" name='email' placeholder='Email' value={email} onChange={getEmail}/>
-                                <input type="password" name='password' placeholder='Password' value={password} onChange={getPassword}/>
+                                <input type="email" name='email' placeholder='Email' value={formData.email.value} onChange={getFormData}/>
+                                <input type="password" name='password' placeholder='Password' value={formData.password.value} onChange={getFormData}/>
                                 <input type="submit" value='Log in'/>
                             </form>
                         </div>

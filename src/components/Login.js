@@ -32,6 +32,13 @@ const Login = () => {
             error: '',
         },
     });
+    const [formError, setFormError] = useState({
+        nameError: '',
+        lastNameError: '',
+        phoneError: '',
+        emailError: '',
+        passwordError: '',
+    });
 
     const showSignUp = () => {
         setToggleLogin(true);
@@ -56,29 +63,38 @@ const Login = () => {
         });
     };
 
-    const formValidation = () => {
-        if (formData.name.value === '') {
-            setFormData({
-                ...formData,
-                name: {
-                    ...formData.name,
-                    error: 'hjk'
-                },
-            });
-        }else {
-            setFormData({
-                ...formData,
-                name: {
-                    ...formData.name,
-                    error: '',
-                },
-            });
-        }
+    const nameValidation = () => {
+
+    };
+
+    const lastNameValidation = () => {
+
+    };
+
+    const formValidation = async (e) => {
+        let formInputs = Array.from(e.target.children);
+        formInputs.forEach(el => {
+           if(el.value === ''){
+               setFormError(prevState => ({
+                   ...prevState,
+                   [el.name + 'Error']: 'Please fill in the input field',
+               }));
+           }else {
+               setFormError(prevState => ({
+                   ...prevState,
+                   [el.name + 'Error']: '',
+               }));
+           }
+        });
+
+        // let name =await nameValidation();
+        // let lastname = await lastNameValidation();
+        // return name && lastname;
     };
 
     const signUp = e => {
         e.preventDefault();
-      formValidation();
+        formValidation(e);
 
         // firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
         //     .then(data => {
@@ -98,7 +114,7 @@ const Login = () => {
 
     const logIn = e => {
         e.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
+        firebase.auth().signInWithEmailAndPassword(formData.email.value, formData.password.value)
             .then(res => {
                 dispatch(userSuccessLogIn());
                 console.log('You are logged in', res)
@@ -122,11 +138,15 @@ const Login = () => {
                         <div className={classSignUp}>
                             <form className='submit-form' onSubmit={signUp}>
                                 <input type="text" name='name' placeholder='First Name' value={formData.name.value} onChange={getFormData}/>
-                                {formData.name.error && <p>hjk</p>}
+                                {formError.nameError && <p>{formError.nameError}</p>}
                                 <input type="text" name='lastName' placeholder='Last Name' value={formData.lastName.value} onChange={getFormData}/>
+                                {formError.lastNameError && <p>{formError.lastNameError}</p>}
                                 <input type="text" name='phone' placeholder='Phone' value={formData.phone.value} onChange={getFormData}/>
+                                {formError.phoneError && <p>{formError.phoneError}</p>}
                                 <input type="email" name='email' placeholder='Email' value={formData.email.value} onChange={getFormData}/>
+                                {formError.emailError && <p>{formError.emailError}</p>}
                                 <input type="password" name='password' placeholder='Password' value={formData.password.value} onChange={getFormData}/>
+                                {formError.passwordError && <p>{formError.passwordError}</p>}
                                 <input type="submit" value='Submit'/>
                             </form>
                         </div>

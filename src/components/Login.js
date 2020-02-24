@@ -11,26 +11,11 @@ const Login = () => {
     const [toggleLogin, setToggleLogin] = useState(false);
     const [toggleSignUp, setToggleSignUp] = useState(false);
     const [formData, setFormData] = useState({
-        name: {
-            value: '',
-            error: '',
-        },
-        lastName: {
-            value: '',
-            error: '',
-        },
-        phone: {
-            value: '',
-            error: '',
-        },
-        email: {
-            value: '',
-            error: '',
-        },
-        password: {
-            value: '',
-            error: '',
-        },
+        name: '',
+        lastName: '',
+        phone: '',
+        email: '',
+        password: '',
     });
     const [formError, setFormError] = useState({
         nameError: '',
@@ -56,17 +41,14 @@ const Login = () => {
     const getFormData = e => {
         setFormData({
             ...formData,
-            [e.target.name]: {
-                ...formData[e.target.name],
-                value: e.target.value,
-            },
+            [e.target.name]:  e.target.value,
         });
     };
 
     const emailValidation = () => {
-        let emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.value);
+        let emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         let isEmptyEmail;
-        if(formData.email.value === '') {
+        if(formData.email === '') {
             isEmptyEmail = false;
             return inputValidation(isEmptyEmail,'emailError', 'Please fill in the input field' )
         }else {
@@ -75,9 +57,9 @@ const Login = () => {
     };
 
     const phoneValidation = () => {
-        let phoneTest = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(formData.phone.value);
+        let phoneTest = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(formData.phone);
         let isEmptyPhone;
-        if(formData.phone.value === '') {
+        if(formData.phone === '') {
             isEmptyPhone = false;
             return inputValidation(isEmptyPhone,'phoneError', 'Please fill in the input field' )
         }else {
@@ -137,7 +119,7 @@ const Login = () => {
 
     const logIn = e => {
         e.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(formData.email.value, formData.password.value)
+        firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
             .then(res => {
                 dispatch(userSuccessLogIn());
                 console.log('You are logged in', res)
@@ -160,15 +142,15 @@ const Login = () => {
                     <div className="sign-up form-container">
                         <div className={classSignUp}>
                             <form className='submit-form' onSubmit={signUp} noValidate>
-                                <input type="text" name='name' placeholder='First Name' value={formData.name.value} onChange={getFormData}/>
+                                <input type="text" name='name' placeholder='First Name' value={formData.name} onChange={getFormData}/>
                                 {formError.nameError && <p>{formError.nameError}</p>}
-                                <input type="text" name='lastName' placeholder='Last Name' value={formData.lastName.value} onChange={getFormData}/>
+                                <input type="text" name='lastName' placeholder='Last Name' value={formData.lastName} onChange={getFormData}/>
                                 {formError.lastNameError && <p>{formError.lastNameError}</p>}
-                                <input type="tel" name='phone' placeholder='Phone' value={formData.phone.value} onChange={getFormData}/>
+                                <input type="tel" name='phone' placeholder='Phone' value={formData.phone} onChange={getFormData}/>
                                 {formError.phoneError && <p>{formError.phoneError}</p>}
-                                <input type="email" name='email' placeholder='Email' value={formData.email.value} onChange={getFormData}/>
+                                <input type="email" name='email' placeholder='Email' value={formData.email} onChange={getFormData}/>
                                 {formError.emailError && <p>{formError.emailError}</p>}
-                                <input type="password" name='password' placeholder='Password' value={formData.password.value} onChange={getFormData}/>
+                                <input type="password" name='password' placeholder='Password' value={formData.password} onChange={getFormData}/>
                                 {formError.passwordError && <p>{formError.passwordError}</p>}
                                 <input type="submit" value='Submit'/>
                             </form>
@@ -177,8 +159,8 @@ const Login = () => {
                     <div className="login form-container">
                         <div className={classLogIn} onSubmit={logIn}>
                             <form className='login-form'>
-                                <input type="email" name='email' placeholder='Email' value={formData.email.value} onChange={getFormData}/>
-                                <input type="password" name='password' placeholder='Password' value={formData.password.value} onChange={getFormData}/>
+                                <input type="email" name='email' placeholder='Email' value={formData.email} onChange={getFormData}/>
+                                <input type="password" name='password' placeholder='Password' value={formData.password} onChange={getFormData}/>
                                 <input type="submit" value='Log in'/>
                             </form>
                         </div>

@@ -99,6 +99,17 @@
               color: #ffffff;
             }
           }
+          .errorInputStyle {
+            margin-bottom: 0;
+            border: 1px solid #b31e10;
+          }
+          .errorMsg {
+            width: 90%;
+            border-bottom: 1px solid #b31e10;
+            color: rgb(179, 30, 16);
+            font-weight: 600;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, .2) , rgba(255, 255, 255, .5), rgba(255, 255, 255, .7), rgba(255, 255, 255, .5), rgba(255, 255, 255, .2));
+          }
         }
 
         .submit-form input[type='submit']{

@@ -142,16 +142,16 @@ const Login = () => {
                     <div className="sign-up form-container">
                         <div className={classSignUp}>
                             <form className='submit-form' onSubmit={signUp} noValidate>
-                                <input type="text" name='name' placeholder='First Name' value={formData.name} onChange={getFormData}/>
-                                {formError.nameError && <p>{formError.nameError}</p>}
-                                <input type="text" name='lastName' placeholder='Last Name' value={formData.lastName} onChange={getFormData}/>
-                                {formError.lastNameError && <p>{formError.lastNameError}</p>}
-                                <input type="tel" name='phone' placeholder='Phone' value={formData.phone} onChange={getFormData}/>
-                                {formError.phoneError && <p>{formError.phoneError}</p>}
-                                <input type="email" name='email' placeholder='Email' value={formData.email} onChange={getFormData}/>
-                                {formError.emailError && <p>{formError.emailError}</p>}
-                                <input type="password" name='password' placeholder='Password' value={formData.password} onChange={getFormData}/>
-                                {formError.passwordError && <p>{formError.passwordError}</p>}
+                                <input type="text" name='name' placeholder='First Name' value={formData.name} className={formError.nameError?'errorInputStyle':null} onChange={getFormData}/>
+                                {formError.nameError && <p className='errorMsg'>{formError.nameError}</p>}
+                                <input type="text" name='lastName' placeholder='Last Name' value={formData.lastName} className={formError.lastNameError?'errorInputStyle':null} onChange={getFormData}/>
+                                {formError.lastNameError && <p className='errorMsg'>{formError.lastNameError}</p>}
+                                <input type="tel" name='phone' placeholder='Phone' value={formData.phone} className={formError.phoneError?'errorInputStyle':null} onChange={getFormData}/>
+                                {formError.phoneError && <p className='errorMsg'>{formError.phoneError}</p>}
+                                <input type="email" name='email' placeholder='Email' value={formData.email} className={formError.emailError?'errorInputStyle':null} onChange={getFormData}/>
+                                {formError.emailError && <p className='errorMsg'>{formError.emailError}</p>}
+                                <input type="password" name='password' placeholder='Password' value={formData.password} className={formError.passwordError?'errorInputStyle':null} onChange={getFormData}/>
+                                {formError.passwordError && <p className='errorMsg'>{formError.passwordError}</p>}
                                 <input type="submit" value='Submit'/>
                             </form>
                         </div>

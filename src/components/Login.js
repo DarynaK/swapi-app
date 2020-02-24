@@ -63,33 +63,56 @@ const Login = () => {
         });
     };
 
-    const nameValidation = () => {
-
+    const emailValidation = () => {
+        let emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.value);
+        let isEmptyEmail;
+        if(formData.email.value === '') {
+            isEmptyEmail = false;
+            return inputValidation(isEmptyEmail,'emailError', 'Please fill in the input field' )
+        }else {
+            return inputValidation(emailTest,'emailError', 'Please enter correct email' )
+        }
     };
 
-    const lastNameValidation = () => {
-
+    const phoneValidation = () => {
+        let phoneTest = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(formData.phone.value);
+        let isEmptyPhone;
+        if(formData.phone.value === '') {
+            isEmptyPhone = false;
+            return inputValidation(isEmptyPhone,'phoneError', 'Please fill in the input field' )
+        }else {
+            return inputValidation(phoneTest,'phoneError', 'Please enter correct phone' )
+        }
     };
 
-    const formValidation = async (e) => {
+    const emptyInputCheck = (e) => {
         let formInputs = Array.from(e.target.children);
+        let validationResult;
         formInputs.forEach(el => {
-           if(el.value === ''){
-               setFormError(prevState => ({
-                   ...prevState,
-                   [el.name + 'Error']: 'Please fill in the input field',
-               }));
-           }else {
-               setFormError(prevState => ({
-                   ...prevState,
-                   [el.name + 'Error']: '',
-               }));
-           }
+           validationResult = el.value !== '';
+            return inputValidation(validationResult,el.name + 'Error', 'Please fill in the input field' )
         });
+    };
 
-        // let name =await nameValidation();
-        // let lastname = await lastNameValidation();
-        // return name && lastname;
+    const inputValidation = (state, fieldName, errorMessage) => {
+        if(!state) {
+            setFormError(prevState => ({
+                ...prevState,
+                [fieldName]: errorMessage,
+            }));
+        }else {
+            setFormError(prevState => ({
+                ...prevState,
+                [fieldName]: '',
+            }));
+        }
+    };
+
+    const formValidation = (e) => {
+        let isEmpty = emptyInputCheck(e);
+        let email =emailValidation();
+        let phone = phoneValidation();
+        return isEmpty && email && phone;
     };
 
     const signUp = e => {
@@ -136,12 +159,12 @@ const Login = () => {
                 <div className="login-form-containers">
                     <div className="sign-up form-container">
                         <div className={classSignUp}>
-                            <form className='submit-form' onSubmit={signUp}>
+                            <form className='submit-form' onSubmit={signUp} noValidate>
                                 <input type="text" name='name' placeholder='First Name' value={formData.name.value} onChange={getFormData}/>
                                 {formError.nameError && <p>{formError.nameError}</p>}
                                 <input type="text" name='lastName' placeholder='Last Name' value={formData.lastName.value} onChange={getFormData}/>
                                 {formError.lastNameError && <p>{formError.lastNameError}</p>}
-                                <input type="text" name='phone' placeholder='Phone' value={formData.phone.value} onChange={getFormData}/>
+                                <input type="tel" name='phone' placeholder='Phone' value={formData.phone.value} onChange={getFormData}/>
                                 {formError.phoneError && <p>{formError.phoneError}</p>}
                                 <input type="email" name='email' placeholder='Email' value={formData.email.value} onChange={getFormData}/>
                                 {formError.emailError && <p>{formError.emailError}</p>}

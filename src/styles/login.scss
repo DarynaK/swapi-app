@@ -9,8 +9,8 @@
     height: inherit;
     .login-page-buttons {
       button {
-        width: 11vw;
-        height: 4vh;
+        width: 7vw;
+        height: 3vh;
         color: #000000;
         border: none;
         font-weight: 500;
@@ -117,6 +117,82 @@
             background:  rgb(166, 65, 37);
           }
         }
+      }
+    }
+  }
+}
+
+@media(max-width: 1320px) {
+  .login-page {
+    .login-page-form {
+      .login-page-buttons {
+        button {
+          height: 3vh;
+        }
+      }
+      .login-form-containers {
+        width: 88vw;
+        .form-container {
+          .login-wrapper{
+            width: 44vw;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 652px) {
+  .login-page {
+    height: 94vh;
+    .login-page-form {
+      .login-page-buttons {
+        button {
+          width: 30vw;
+          height: 4vh;
+        }
+      }
+      .login-form-containers {
+        width: 100vw;
+        height: 73vh;
+        .form-container {
+          overflow-y: unset;
+          flex: none;
+          form {
+            input {
+              padding: 11px;
+              margin-bottom: 10px;
+            }
+            .errorMsg {
+              font-size: 14px;
+              margin-bottom: 10px;
+            }
+          }
+          .login-wrapper {
+            width: 100vw;
+          }
+          .overlay.login-wrapper {
+            left: -100vw;
+          }
+          .sign-up-wrapper {
+            width: 100vw;
+            right: 0;
+          }
+          .slide-away.sign-up-wrapper {
+            right: -100vw;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 414px) {
+  .login-page {
+    height: 80vh;
+    .login-page-form {
+      .login-form-containers {
+        height: 66vh;
       }
     }
   }

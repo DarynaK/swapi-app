@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../styles/login.scss';
 import {useFirebase} from 'react-redux-firebase';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {userSuccessSignUp, userFailureSignUp, userSuccessLogIn, userFailureLogIn} from '../store/actions/auth';
 
 const Login = () => {
@@ -164,12 +164,15 @@ const Login = () => {
             firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
                 .then(res => {
                     dispatch(userSuccessLogIn());
+                    setFormError(prevState => ({
+                        ...prevState,
+                        logInError: '',
+                    }));
                     console.log('You are logged in', res)
                 })
                 .catch(err => {
                     dispatch(userFailureLogIn());
                     inputValidation(false,'logInError', err.message );
-                        console.log('Something went wrong', err.message)
                     }
                 );
         }

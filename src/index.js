@@ -51,7 +51,7 @@ ReactDOM.render(
         <ReactReduxFirebaseProvider {...rrfProps}>
     <BrowserRouter>
     <App />
-    </BrowserRouter>,
+    </BrowserRouter>
         </ReactReduxFirebaseProvider>
     </Provider>,
     document.getElementById('root'));

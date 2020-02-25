@@ -81,7 +81,7 @@
           input {
             width: 85%;
             padding: 13px;
-            margin-bottom: 25px;
+            margin-bottom: 16px;
             border-radius: 16px;
             border: 1px solid grey;
             font-size: 17px;
@@ -89,7 +89,6 @@
             cursor: pointer;
           }
           input[type='submit'] {
-            margin-bottom: 0;
             background: rgb(26, 101, 96);
             border: none;
             font-weight: 500;
@@ -100,11 +99,11 @@
             }
           }
           .errorInputStyle {
-            margin-bottom: 0;
             border: 1px solid #b31e10;
           }
           .errorMsg {
             width: 90%;
+            margin-top: 0;
             border-bottom: 1px solid #b31e10;
             color: rgb(179, 30, 16);
             font-weight: 600;

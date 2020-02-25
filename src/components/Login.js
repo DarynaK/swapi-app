@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../styles/login.scss';
-import { useFirebase } from 'react-redux-firebase';
-import {useDispatch} from 'react-redux';
+import {useFirebase} from 'react-redux-firebase';
+import {useDispatch, useSelector} from 'react-redux';
 import {userSuccessSignUp, userFailureSignUp, userSuccessLogIn, userFailureLogIn} from '../store/actions/auth';
 
 const Login = () => {
@@ -25,6 +25,7 @@ const Login = () => {
         passwordError: '',
         emailLogInError: '',
         passwordLogInError: '',
+        logInError: '',
     });
 
     const showSignUp = () => {
@@ -52,9 +53,11 @@ const Login = () => {
         let isEmptyEmail;
         if(formData.email === '') {
             isEmptyEmail = false;
-            return inputValidation(isEmptyEmail,'emailError', 'Please fill in the input field' )
+            inputValidation(isEmptyEmail,'emailError', 'Please fill in the input field' );
+            return isEmptyEmail;
         }else {
-            return inputValidation(emailTest,'emailError', 'Please enter correct email' )
+             inputValidation(emailTest,'emailError', 'Please enter correct email' );
+            return emailTest;
         }
     };
 
@@ -63,39 +66,47 @@ const Login = () => {
         let isEmptyEmail;
         if(formData.email === '') {
             isEmptyEmail = false;
-            return inputValidation(isEmptyEmail,'emailLogInError', 'Please fill in the input field' )
+            inputValidation(isEmptyEmail,'emailLogInError', 'Please fill in the input field' );
+            return isEmptyEmail;
         }else {
-            return inputValidation(emailTest,'emailLogInError', 'Please enter correct email' )
+            inputValidation(emailTest,'emailLogInError', 'Please enter correct email' );
+            return emailTest;
         }
     };
 
     const phoneValidation = () => {
-        let phoneTest = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(formData.phone);
+        let phoneTest = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im.test(formData.phone);
         let isEmptyPhone;
         if(formData.phone === '') {
             isEmptyPhone = false;
-            return inputValidation(isEmptyPhone,'phoneError', 'Please fill in the input field' )
+            inputValidation(isEmptyPhone,'phoneError', 'Please fill in the input field' );
+            return isEmptyPhone;
         }else {
-            return inputValidation(phoneTest,'phoneError', 'Please enter correct phone' )
+            inputValidation(phoneTest,'phoneError', 'Please enter correct phone' );
+            return phoneTest;
         }
     };
 
     const emptyInputCheck = (e) => {
         let formInputs = Array.from(e.target.children);
         let validationResult;
-        formInputs.forEach(el => {
+        let inputRes = formInputs.map(el => {
            validationResult = el.value !== '';
-            return inputValidation(validationResult,el.name + 'Error', 'Please fill in the input field' )
+            inputValidation(validationResult,el.name + 'Error', 'Please fill in the input field' );
+            return validationResult;
         });
+        return inputRes.every(v => v === inputRes[0]);
     };
 
     const logInEmptyInputCheck = (e) => {
         let formInputs = Array.from(e.target.children);
         let validationResult;
-        formInputs.forEach(el => {
+        let inputRes = formInputs.map(el => {
             validationResult = el.value !== '';
-            return inputValidation(validationResult,el.name + 'LogInError', 'Please fill in the input field' )
+            inputValidation(validationResult,el.name + 'LogInError', 'Please fill in the input field' );
+            return validationResult;
         });
+        return inputRes.every(v => v === inputRes[0]);
     };
 
     const inputValidation = (state, fieldName, errorMessage) => {
@@ -113,8 +124,9 @@ const Login = () => {
     };
 
     const logInFormValidation = e => {
-        logInEmptyInputCheck(e);
-        emailLogInValidation();
+        let isEmptyLogInForm = logInEmptyInputCheck(e);
+        let logInEmailValidation = emailLogInValidation();
+        return isEmptyLogInForm && logInEmailValidation;
     };
 
     const formValidation = e => {
@@ -126,37 +138,41 @@ const Login = () => {
 
     const signUp = e => {
         e.preventDefault();
-        formValidation(e);
-
-        // firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
-        //     .then(data => {
-        //         return firebase.firestore().collection('users').doc(data.user.uid).set({
-        //             name: formData.name,
-        //             lastName: formData.lastName,
-        //             email: data.user.email,
-        //         });
-        //     })
-        //     .then(() => {
-        //         dispatch(userSuccessSignUp({name: formData.name, lastName: formData.lastName, email: formData.email}));
-        //     })
-        //     .catch(err =>
-        //         dispatch(userFailureSignUp(err))
-        //     );
+        if(formValidation(e)) {
+            firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
+                .then(data => {
+                return firebase.firestore().collection('users').doc(data.user.uid).set({
+                    name: formData.name,
+                    lastName: formData.lastName,
+                    email: data.user.email,
+                });
+            })
+                .then(() => {
+                    dispatch(userSuccessSignUp({name: formData.name, lastName: formData.lastName, email: formData.email}));
+                })
+                .catch(err => {
+                    inputValidation(false,'emailError', err.message );
+                    dispatch(userFailureSignUp(err))
+                }
+            );
+        }
     };
 
     const logIn = e => {
         e.preventDefault();
-        logInFormValidation(e);
-        // firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
-        //     .then(res => {
-        //         dispatch(userSuccessLogIn());
-        //         console.log('You are logged in', res)
-        //     })
-        //     .catch(err => {
-        //         dispatch(userFailureLogIn());
-        //             console.log('Something went wrong', err.message)
-        //         }
-        //     );
+        if(logInFormValidation(e)) {
+            firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
+                .then(res => {
+                    dispatch(userSuccessLogIn());
+                    console.log('You are logged in', res)
+                })
+                .catch(err => {
+                    dispatch(userFailureLogIn());
+                    inputValidation(false,'logInError', err.message );
+                        console.log('Something went wrong', err.message)
+                    }
+                );
+        }
     };
 
     return (
@@ -187,11 +203,12 @@ const Login = () => {
                     <div className="login form-container">
                         <div className={classLogIn} onSubmit={logIn}>
                             <form className='login-form' noValidate>
-                                <input type="email" name='email' placeholder='Email' value={formData.email} className={formError.emailLogInError?'errorInputStyle':null} onChange={getFormData}/>
+                                <input type="email" name='email' placeholder='Email' value={formData.email} className={formError.emailLogInError || formError.logInError?'errorInputStyle':null} onChange={getFormData}/>
                                 {formError.emailLogInError && <p className='errorMsg'>{formError.emailLogInError}</p>}
-                                <input type="password" name='password' placeholder='Password' value={formData.password} className={formError.passwordLogInError?'errorInputStyle':null} onChange={getFormData}/>
+                                <input type="password" name='password' placeholder='Password' value={formData.password} className={formError.passwordLogInError || formError.logInError?'errorInputStyle':null} onChange={getFormData}/>
                                 {formError.passwordLogInError && <p className='errorMsg'>{formError.passwordLogInError}</p>}
                                 <input type="submit" value='Log in'/>
+                                {formError.logInError && <p className='errorMsg'>{formError.logInError}</p>}
                             </form>
                         </div>
                     </div>

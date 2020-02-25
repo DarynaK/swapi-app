@@ -23,6 +23,8 @@ const Login = () => {
         phoneError: '',
         emailError: '',
         passwordError: '',
+        emailLogInError: '',
+        passwordLogInError: '',
     });
 
     const showSignUp = () => {
@@ -56,6 +58,17 @@ const Login = () => {
         }
     };
 
+    const emailLogInValidation = () => {
+        let emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+        let isEmptyEmail;
+        if(formData.email === '') {
+            isEmptyEmail = false;
+            return inputValidation(isEmptyEmail,'emailLogInError', 'Please fill in the input field' )
+        }else {
+            return inputValidation(emailTest,'emailLogInError', 'Please enter correct email' )
+        }
+    };
+
     const phoneValidation = () => {
         let phoneTest = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(formData.phone);
         let isEmptyPhone;
@@ -76,6 +89,15 @@ const Login = () => {
         });
     };
 
+    const logInEmptyInputCheck = (e) => {
+        let formInputs = Array.from(e.target.children);
+        let validationResult;
+        formInputs.forEach(el => {
+            validationResult = el.value !== '';
+            return inputValidation(validationResult,el.name + 'LogInError', 'Please fill in the input field' )
+        });
+    };
+
     const inputValidation = (state, fieldName, errorMessage) => {
         if(!state) {
             setFormError(prevState => ({
@@ -90,7 +112,12 @@ const Login = () => {
         }
     };
 
-    const formValidation = (e) => {
+    const logInFormValidation = e => {
+        logInEmptyInputCheck(e);
+        emailLogInValidation();
+    };
+
+    const formValidation = e => {
         let isEmpty = emptyInputCheck(e);
         let email =emailValidation();
         let phone = phoneValidation();
@@ -119,16 +146,17 @@ const Login = () => {
 
     const logIn = e => {
         e.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
-            .then(res => {
-                dispatch(userSuccessLogIn());
-                console.log('You are logged in', res)
-            })
-            .catch(err => {
-                dispatch(userFailureLogIn());
-                    console.log('Something went wrong', err.message)
-                }
-            );
+        logInFormValidation(e);
+        // firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
+        //     .then(res => {
+        //         dispatch(userSuccessLogIn());
+        //         console.log('You are logged in', res)
+        //     })
+        //     .catch(err => {
+        //         dispatch(userFailureLogIn());
+        //             console.log('Something went wrong', err.message)
+        //         }
+        //     );
     };
 
     return (
@@ -158,9 +186,11 @@ const Login = () => {
                     </div>
                     <div className="login form-container">
                         <div className={classLogIn} onSubmit={logIn}>
-                            <form className='login-form'>
-                                <input type="email" name='email' placeholder='Email' value={formData.email} onChange={getFormData}/>
-                                <input type="password" name='password' placeholder='Password' value={formData.password} onChange={getFormData}/>
+                            <form className='login-form' noValidate>
+                                <input type="email" name='email' placeholder='Email' value={formData.email} className={formError.emailLogInError?'errorInputStyle':null} onChange={getFormData}/>
+                                {formError.emailLogInError && <p className='errorMsg'>{formError.emailLogInError}</p>}
+                                <input type="password" name='password' placeholder='Password' value={formData.password} className={formError.passwordLogInError?'errorInputStyle':null} onChange={getFormData}/>
+                                {formError.passwordLogInError && <p className='errorMsg'>{formError.passwordLogInError}</p>}
                                 <input type="submit" value='Log in'/>
                             </form>
                         </div>

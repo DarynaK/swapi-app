@@ -11,19 +11,20 @@
     text-decoration: none;
     font-size: 1.4em;
     font-weight: 400;
-    color: #000000;
+    color: rgba(255, 255, 255, .5);
     position: relative;
     &::after {
       width: 0;
       height: 1px;
       display: block;
       content:'';
-      background: #000000;
+      background: #ffffff;
       position: absolute;
       left: 0;
       transition: .5s ease;
     }
     &:hover {
+      color: #ffffff;
       &::after {
         width: 100%;
         left: 0;
@@ -33,15 +34,21 @@
 
   button {
     width: 8vw;
-    padding: 0;
+    padding: 5px 0;
     font-size: 1.3em;
-    color: #000000;
+    color: rgba(255, 255, 255, .5);
     background: transparent;
-    border: none;
-    height: 2.1vh;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-self: center;
+    outline: none;
     cursor: pointer;
+    &:hover {
+      color: #ffffff;
+      border: 1px solid #ffffff;
+    }
   }
 }

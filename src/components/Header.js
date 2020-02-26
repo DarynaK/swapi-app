@@ -16,9 +16,9 @@ const Header = () => {
 
         return(
             <div className='nav-container'>
-                <Link to='/' >Home</Link>
+                <Link to='/'>Home</Link>
                 <Link to='public' >Public</Link>
-                <Link to='private' >Private</Link>
+                <Link to='private' style={{display:isLoggedIn?'none':'block'}}>Private</Link>
                 <Link to='login' style={{display:isLoggedIn?'block':'none'}}>Login</Link>
                 <button className='logout-button' style={{display:isLoggedIn?'none':'flex'}} onClick={logOut}>Logout</button>
             </div>

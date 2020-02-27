@@ -4,6 +4,7 @@ import '../styles/nav.scss';
 import {useFirebase} from "react-redux-firebase";
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogOut} from '../store/actions/auth';
+const isMobile = window.innerWidth < 1041;
 
 const Header = () => {
     const isLoggedIn = useSelector(state => state.firebase.profile.isEmpty);
@@ -20,7 +21,7 @@ const Header = () => {
     };
 
         return(
-            <div className='nav-container'>
+            <div className={isOpen?'nav-container open':'nav-container'}>
                 <div className="mobile-nav-container" onClick={openMobNav}>
                     <div className={isOpen?'icon-line line-one':'icon-line'}>
 
@@ -32,7 +33,7 @@ const Header = () => {
 
                     </div>
                 </div>
-                <div className="link-container">
+                <div className={isOpen?'link-container show-nav':'link-container'}>
                     <Link to='/'>Home</Link>
                     <Link to='public' >Public</Link>
                     <Link to='private' style={{display:isLoggedIn?'none':'block'}}>Private</Link>

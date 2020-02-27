@@ -14,16 +14,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  &:after {
-    width: 100vw;
-    height: 100vh;
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, .9);
-    z-index: 0;
-  }
 }
 
 @media(max-width: 414px) {

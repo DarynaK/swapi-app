@@ -71,3 +71,30 @@
   }
 }
 
+@media(max-width: 729px) {
+  .login-page {
+    .form-container {
+      form {
+        width: 65vw;
+      }
+    }
+  }
+}
+
+@media(max-width: 414px) {
+  .login-page {
+    height: auto;
+    .form-container {
+      margin-bottom: 7vh;
+      form {
+        width: 80vw;
+        p {
+          margin: 30px 0;
+          font-size: 4rem;
+        }
+      }
+    }
+  }
+}
+
+

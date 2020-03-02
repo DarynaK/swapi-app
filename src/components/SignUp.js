@@ -4,10 +4,12 @@ import {useFirebase} from 'react-redux-firebase';
 import {useDispatch} from 'react-redux';
 import {userSuccessSignUp, userFailureSignUp} from '../store/actions/auth';
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router";
 
 const SignUp = () => {
     const firebase = useFirebase();
     const dispatch = useDispatch();
+    let history = useHistory();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -105,6 +107,8 @@ const SignUp = () => {
                 })
                 .then(() => {
                     dispatch(userSuccessSignUp({name: formData.name, lastName: formData.lastName, email: formData.email}));
+                    history.push("/private");
+                    console.log('Account successfully created');
                 })
                 .catch(err => {
                         inputValidation(false,'emailError', err.message );

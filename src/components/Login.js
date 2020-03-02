@@ -91,7 +91,7 @@ const Login = () => {
                         ...prevState,
                         logInError: '',
                     }));
-                    history.push("/private");
+                    history.push("/account");
                     console.log('You are logged in', res);
                 })
                 .catch(err => {

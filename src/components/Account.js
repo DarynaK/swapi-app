@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Private = () => {
+const Account = () => {
     return <p>Private Route</p>
 };
 
-export default Private;
+export default Account;

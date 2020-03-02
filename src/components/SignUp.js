@@ -107,7 +107,7 @@ const SignUp = () => {
                 })
                 .then(() => {
                     dispatch(userSuccessSignUp({name: formData.name, lastName: formData.lastName, email: formData.email}));
-                    history.push("/private");
+                    history.push("/account");
                     console.log('Account successfully created');
                 })
                 .catch(err => {

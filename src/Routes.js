@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Public from './components/Public';
-import Private from './components/Private';
+import Account from './components/Account';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { useSelector } from 'react-redux'
@@ -11,7 +11,7 @@ const Router = (props) => (
         <Route exact path='/public' component={Public}/>
         <Route exact path='/login' component={Login}/>
         <Route exact path='/sign-up' component={SignUp}/>
-        <PrivateRoute  path="/private" component={Private} />
+        <PrivateRoute  path="/account" component={Account} />
     </Switch>
 );
 
@@ -25,7 +25,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             ) : (
                 <Redirect
                     to={{
-                        pathname: "/private"
+                        pathname: "/account"
                     }}
                 />
             )

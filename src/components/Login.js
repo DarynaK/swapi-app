@@ -4,10 +4,13 @@ import {useFirebase} from 'react-redux-firebase';
 import {useDispatch} from 'react-redux';
 import {userSuccessLogIn, userFailureLogIn} from '../store/actions/auth';
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router";
 
 const Login = () => {
     const firebase = useFirebase();
     const dispatch = useDispatch();
+    let history = useHistory();
+
 
     const [formData, setFormData] = useState({
         name: '',
@@ -88,7 +91,8 @@ const Login = () => {
                         ...prevState,
                         logInError: '',
                     }));
-                    console.log('You are logged in', res)
+                    history.push("/private");
+                    console.log('You are logged in', res);
                 })
                 .catch(err => {
                         dispatch(userFailureLogIn());

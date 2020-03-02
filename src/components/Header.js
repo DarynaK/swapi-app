@@ -4,7 +4,6 @@ import '../styles/nav.scss';
 import {useFirebase} from "react-redux-firebase";
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogOut} from '../store/actions/auth';
-const isMobile = window.innerWidth < 1041;
 
 const Header = () => {
     const isLoggedIn = useSelector(state => state.firebase.profile.isEmpty);

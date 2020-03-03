@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const MyLists = () => {
+export default function File() {
+
     return (
-        <div className='account-page-container'>MyLists</div>
+        <div>
+            <h3>Hello</h3>
+        </div>
     );
-};
-
-export default MyLists;
+}

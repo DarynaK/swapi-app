@@ -1,18 +1,21 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import Public from './components/Public';
-import Account from './components/Account';
+// import Account from './components/Account';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { useSelector } from 'react-redux'
+import Account from './components/MyInfo'
 
 const Router = (props) => (
-    <Switch>
-        <Route exact path='/public' component={Public}/>
-        <Route exact path='/login' component={Login}/>
-        <Route exact path='/sign-up' component={SignUp}/>
-        <PrivateRoute exact path="/account" component={Account}/>
-    </Switch>
+    <div>
+        <Switch>
+            <Route exact path='/public' component={Public}/>
+            <Route exact path='/login' component={Login}/>
+            <Route exact path='/sign-up' component={SignUp}/>
+            <PrivateRoute path="/account" component={Account}/>
+        </Switch>
+    </div>
 );
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -25,7 +28,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             ) : (
                 <Redirect
                     to={{
-                        pathname: "/account"
+                        pathname: "/topics"
                     }}
                 />
             )

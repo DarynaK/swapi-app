@@ -34,6 +34,6 @@ const Account = () => {
             </Switch>
         </div>
     );
-}
+};
 
 export default Account;

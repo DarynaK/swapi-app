@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import '../styles/login.scss';
+import '../../styles/login.scss';
 import {useFirebase} from 'react-redux-firebase';
 import {useDispatch} from 'react-redux';
-import {userSuccessSignUp, userFailureSignUp} from '../store/actions/auth';
+import {userSuccessSignUp, userFailureSignUp} from '../../store/actions/auth';
 import {Link} from "react-router-dom";
 import {useHistory} from "react-router";
 

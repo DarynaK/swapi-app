@@ -1,6 +1,6 @@
 import {Link, Route, Switch, useParams, useRouteMatch} from "react-router-dom";
 import React from "react";
-import File from '../components/MyInfo'
+import File from './Profile/MyInfo'
 
 export default function Topics() {
     let { path, url } = useRouteMatch();

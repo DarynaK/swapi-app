@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import Public from './components/Public';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import Login from './components/Auth/Login';
+import SignUp from './components/Auth/SignUp';
 import { useSelector } from 'react-redux'
-import Account from './components/Account'
+import Account from './components/Profile/Account'
 
 const Router = (props) => (
     <div>
@@ -27,7 +27,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             ) : (
                 <Redirect
                     to={{
-                        pathname: "/topics"
+                        pathname: "/account"
                     }}
                 />
             )

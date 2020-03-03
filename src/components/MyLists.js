@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function File() {
-
+const MyLists = () => {
     return (
         <div>
-            <h3>Hello</h3>
+            <h3>My Lists</h3>
         </div>
     );
-}
+};
+
+export default MyLists;

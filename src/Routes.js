@@ -1,11 +1,10 @@
 import React from 'react';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import Public from './components/Public';
-// import Account from './components/Account';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { useSelector } from 'react-redux'
-import Account from './components/MyInfo'
+import Account from './components/Account'
 
 const Router = (props) => (
     <div>

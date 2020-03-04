@@ -1,4 +1,4 @@
-import {Link, Route, Switch, useParams, useRouteMatch} from "react-router-dom";
+import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
 import React from "react";
 import File from './Profile/MyInfo'
 

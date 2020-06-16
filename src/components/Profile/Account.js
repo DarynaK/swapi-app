@@ -50,7 +50,9 @@ const Account = () => {
                 <div className="account-content">
                     <Switch>
                         <Route exact path={path}>
-                            <h3>Please select a topic.</h3>
+                            <div className="account-introduction">
+                                <h3>Welcome to <br /> Your Account.</h3>
+                            </div>
                         </Route>
                         <Route path={`${path}/info`} component={MyInfo}/>
                         <Route path={`${path}/lists`} component={MyLists}/>

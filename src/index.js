@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/database';
 import { createStore, combineReducers } from 'redux';
 import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase';
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore';
@@ -30,6 +31,7 @@ const rrfConfig = {
 
 firebase.initializeApp(fbConfig);
 firebase.firestore();
+firebase.database();
 
 const rootReducer = combineReducers({
     firebase: firebaseReducer,

@@ -1,14 +1,27 @@
 import React from "react";
 import {useSelector} from 'react-redux';
+import {useState} from 'react';
 import '../../styles/my-info.scss';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 const MyInfo = () => {
+
     const profileData = useSelector(state => state.firebase.profile);
-    console.log(profileData);
+    const uId = useSelector(state => state.firebase.auth.uid);
+    const db = firebase.firestore();
+    const docRef = db.collection("users").doc(uId);
+
+    const saveAccountInfo = (e) => {
+        e.preventDefault();
+        docRef.get().then(res => {
+            console.log(res.data());
+        });
+    };
     return (
         <div className="my-info-container">
             <p className="my-info-title">My Info</p>
-            <form className="my-info-wrapper">
+            <form className="my-info-wrapper" onSubmit={saveAccountInfo}>
                 <div className="info-wrapper">
                     <p className="pi-title">
                         Personal Information

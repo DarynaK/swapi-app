@@ -19,6 +19,15 @@ const MyInfo = () => {
         country: '' || profileData.country,
         city: '' || profileData.city,
     });
+
+    const [accountValError, setAccountValError] = useState({
+        nameError: '',
+        lastNameError: '',
+        emailError: '',
+    });
+
+    console.log(accountValError);
+
     const db = firebase.firestore();
     const docRef = db.collection("users").doc(uId);
 
@@ -29,16 +38,73 @@ const MyInfo = () => {
         });
     };
 
+    const checkLastName = () => {
+        if(accountForm.lastName === '') {
+            accountError (false,"Please fill in the input field", 'lastNameError' );
+            return false;
+        }else {
+            accountError( true,"", 'lastNameError');
+            return true;
+        }
+    };
+
+    const checkName = () => {
+        if(accountForm.name === '') {
+            accountError (false,"Please fill in the input field", 'nameError' );
+            return false;
+        }else {
+            accountError( true,"", 'nameError');
+            return true;
+        }
+    };
+
+    const checkEmail = () => {
+        let emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(accountForm.email);
+        if(accountForm.email === '') {
+            accountError(false,'Please enter correct email', 'emailError' );
+            return false;
+        }else if(!emailTest) {
+            accountError(emailTest,'Please enter correct email', 'emailError' );
+            return emailTest;
+        }else {
+            accountError(true,'', 'emailError' );
+            return true;
+        }
+    };
+
+
+    const checkAccountValue = () => {
+        checkLastName();
+        checkName();
+        checkEmail();
+    };
+
+    const accountError = ( state, errorMessage, fieldName) => {
+        if(!state) {
+            setAccountValError(prevState => ({
+                ...prevState,
+                [fieldName]: errorMessage,
+            }));
+        }else {
+            setAccountValError(prevState => ({
+                ...prevState,
+                [fieldName]: errorMessage,
+            }));
+        }
+    };
+
     const saveAccountInfo = e => {
         e.preventDefault();
-        docRef.set({
-            'name': accountForm.name,
-            'lastName': accountForm.lastName,
-            'phone': accountForm.phone,
-            'country': accountForm.country,
-            'city': accountForm.city,
-        },{ merge: true }).then(res => console.log('saved'));
-        if(accountForm.email !== profileData.email) changeAuthEmail();
+        checkAccountValue();
+        console.log(checkAccountValue())
+        // docRef.set({
+        //     'name': accountForm.name,
+        //     'lastName': accountForm.lastName,
+        //     'phone': accountForm.phone,
+        //     'country': accountForm.country,
+        //     'city': accountForm.city,
+        // },{ merge: true }).then(res => console.log('saved'));
+        // if(accountForm.email !== profileData.email) changeAuthEmail();
 
     };
 
@@ -64,11 +130,13 @@ const MyInfo = () => {
                     </p>
                     <div className="inputs-container">
                         <label htmlFor="name" className='label-name'>
-                            <input type="text" className='account-input' placeholder='First Name' name='name' value={accountForm.name} onChange={getAccountData}/>
+                            <input type="text" className={accountValError.nameError===''?'account-input':'account-input account-input-error'} placeholder='First Name' name='name' value={accountForm.name} onChange={getAccountData}/>
                         </label>
+                        {accountValError.nameError&&<span className='account-error'>{accountValError.nameError}</span>}
                         <label htmlFor="last-name" className='label-name'>
-                            <input type="text" className='account-input' placeholder='Last Name' name='lastName' value={accountForm.lastName} onChange={getAccountData}/>
+                            <input type="text" className={accountValError.lastNameError===''?'account-input':'account-input account-input-error'} placeholder='Last Name' name='lastName' value={accountForm.lastName} onChange={getAccountData}/>
                         </label>
+                        {accountValError.lastNameError&&<span className='account-error'>{accountValError.lastNameError}</span>}
                     </div>
                 </div>
                 <div className="info-wrapper">
@@ -77,8 +145,9 @@ const MyInfo = () => {
                     </p>
                     <div className="inputs-container">
                         <label htmlFor="email" className='label-name'>
-                            <input type="text" className='account-input' placeholder='Email' name='email' value={accountForm.email} onChange={getAccountData}/>
+                            <input type="text" className={accountValError.emailError===''?'account-input':'account-input account-input-error'} placeholder='Email' name='email' value={accountForm.email} onChange={getAccountData}/>
                         </label>
+                        {accountValError.emailError&&<span className='account-error'>{accountValError.emailError}</span>}
                         <label htmlFor="phone" className='label-name'>
                             <input type="number" className='account-input' placeholder='Phone' name='phone' value={accountForm.phone} onChange={getAccountData}/>
                         </label>

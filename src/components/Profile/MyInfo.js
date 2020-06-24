@@ -138,8 +138,6 @@ const MyInfo = () => {
         });
     };
 
-    console.log(savedData.savedModal)
-
     return (
         <div className="my-info-container">
             <p className="my-info-title">My Info</p>

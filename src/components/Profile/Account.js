@@ -1,5 +1,5 @@
 import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
-import React from "react";
+import React, {useRef} from "react";
 import MyLists from './MyLists'
 import MyInfo from './MyInfo';
 import { useSelector } from 'react-redux';
@@ -7,10 +7,24 @@ import '../../styles/account.scss'
 import AccountIcon from '../../assets/account.svg';
 import InfoIcon from '../../assets/document.svg';
 import ListIcon from '../../assets/heart.svg';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 
 const Account = () => {
     let { path, url } = useRouteMatch();
     const userName = useSelector(state => state.firebase.profile.name);
+    const inputEl = useRef(null);
+
+    const uploadFile = (e) =>{
+        e.preventDefault();
+        let storageRef = firebase.storage().ref();
+        let file = e.target.files[0];
+        console.log(file)
+        let thisRef = storageRef.child(e.target.files[0].name);
+        thisRef.put(file).then(function(snapshot) {
+            console.log('Uploaded a blob or file!');
+        });
+    };
 
     return (
         <div className='account-container main-wrapper'>
@@ -51,6 +65,8 @@ const Account = () => {
                     <Switch>
                         <Route exact path={path}>
                             <div className="account-introduction">
+                                    <input type="file" id="files" onChange={uploadFile} ref={inputEl} name="files[]" multiple/>
+                                    <input type="submit" value='Submit'/>
                                 <h3>Welcome to <br /> Your Account.</h3>
                             </div>
                         </Route>

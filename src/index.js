@@ -32,6 +32,7 @@ const rrfConfig = {
 firebase.initializeApp(fbConfig);
 firebase.firestore();
 firebase.database();
+firebase.storage();
 
 const rootReducer = combineReducers({
     firebase: firebaseReducer,

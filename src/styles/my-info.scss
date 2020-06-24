@@ -49,4 +49,29 @@
       border: 1px solid rgba(255, 255, 255, 0.7);
     }
   }
+  .saved-modal-container {
+    width: 267px;
+    height: 57px;
+    background-color: #008080;
+    border-bottom: 3px solid #003b3b;
+    position: absolute;
+    top: 6%;
+    right: 1%;
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    p {
+      font-weight: 600;
+    }
+  }
+
+  .saved-modal-container.show-modal {
+    animation-name: modal;
+    animation-duration: 3s;
+  }
+
+  @keyframes modal {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
 }

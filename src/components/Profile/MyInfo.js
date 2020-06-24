@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from 'react-redux';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import '../../styles/my-info.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -26,7 +26,19 @@ const MyInfo = () => {
         emailError: '',
     });
 
-    console.log(accountValError);
+    const [savedData, setsavedData ] = useState({
+        savedModal: false,
+    });
+
+    useEffect(() => {
+        const timeoutID = setTimeout(() => {
+            setsavedData({
+                savedModal: false,
+            });
+        }, 2000);
+
+        return () => clearTimeout(timeoutID );
+    }, [savedData.savedModal]);
 
     const db = firebase.firestore();
     const docRef = db.collection("users").doc(uId);
@@ -74,9 +86,7 @@ const MyInfo = () => {
 
 
     const checkAccountValue = () => {
-        checkLastName();
-        checkName();
-        checkEmail();
+        return checkLastName() && checkName() && checkEmail();
     };
 
     const accountError = ( state, errorMessage, fieldName) => {
@@ -95,17 +105,25 @@ const MyInfo = () => {
 
     const saveAccountInfo = e => {
         e.preventDefault();
-        checkAccountValue();
-        console.log(checkAccountValue())
-        // docRef.set({
-        //     'name': accountForm.name,
-        //     'lastName': accountForm.lastName,
-        //     'phone': accountForm.phone,
-        //     'country': accountForm.country,
-        //     'city': accountForm.city,
-        // },{ merge: true }).then(res => console.log('saved'));
-        // if(accountForm.email !== profileData.email) changeAuthEmail();
 
+        if(checkAccountValue()) {
+            docRef.set({
+                'name': accountForm.name,
+                'lastName': accountForm.lastName,
+                'phone': accountForm.phone,
+                'country': accountForm.country,
+                'city': accountForm.city,
+            },{ merge: true }).then(res => console.log('saved'));
+            if(accountForm.email !== profileData.email) changeAuthEmail();
+            setsavedData({
+                savedModal: true,
+            });
+        }else {
+            setsavedData({
+                savedModal: false,
+            });
+            // console.log('Not saved');
+        }
     };
 
     const changeAuthEmail = () => {
@@ -119,6 +137,8 @@ const MyInfo = () => {
             console.log('An error happened.', error);
         });
     };
+
+    console.log(savedData.savedModal)
 
     return (
         <div className="my-info-container">
@@ -161,6 +181,9 @@ const MyInfo = () => {
                 </div>
                 <input type="submit" className='account-save-button' value='Save'/>
             </form>
+            <div className={savedData.savedModal?'saved-modal-container show-modal':'saved-modal-container'}>
+                <p>Saved</p>
+            </div>
         </div>
     );
 };

@@ -10,6 +10,8 @@ const MyInfo = () => {
 
     const profileData = useSelector(state => state.firebase.profile);
     const uId = useSelector(state => state.firebase.auth.uid);
+    const db = firebase.firestore();
+    const docRef = db.collection("users").doc(uId);
 
     const [accountForm, setAccountForm] = useState({
         name: '' || profileData.name,
@@ -39,9 +41,6 @@ const MyInfo = () => {
 
         return () => clearTimeout(timeoutID );
     }, [savedData.savedModal]);
-
-    const db = firebase.firestore();
-    const docRef = db.collection("users").doc(uId);
 
     const getAccountData = e => {
         setAccountForm({

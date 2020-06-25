@@ -1,5 +1,5 @@
 import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
-import React, {useRef} from "react";
+import React, {useState} from "react";
 import MyLists from './MyLists'
 import MyInfo from './MyInfo';
 import { useSelector } from 'react-redux';
@@ -13,16 +13,23 @@ import 'firebase/storage';
 const Account = () => {
     let { path, url } = useRouteMatch();
     const userName = useSelector(state => state.firebase.profile.name);
-    const inputEl = useRef(null);
+    const userAvatar = useSelector(state => state.firebase.profile.avatar);
+    const uId = useSelector(state => state.firebase.auth.uid);
+    const db = firebase.firestore();
+    const docRef = db.collection("users").doc(uId);
 
-    const uploadFile = (e) =>{
+
+    const uploadFile = (e) => {
         e.preventDefault();
         let storageRef = firebase.storage().ref();
         let file = e.target.files[0];
-        console.log(file)
         let thisRef = storageRef.child(e.target.files[0].name);
-        thisRef.put(file).then(function(snapshot) {
-            console.log('Uploaded a blob or file!');
+        thisRef.put(file).then(function (snapshot) {
+            storageRef.child(file.name).getDownloadURL().then(function (url) {
+                docRef.set({
+                    'avatar': url,
+                },{ merge: true }).then(res => console.log('saved logo'));
+            });
         });
     };
 
@@ -65,9 +72,10 @@ const Account = () => {
                     <Switch>
                         <Route exact path={path}>
                             <div className="account-introduction">
-                                    <input type="file" id="files" onChange={uploadFile} ref={inputEl} name="files[]" multiple/>
+                                    <input type="file" id="files" onChange={uploadFile} name="files[]" multiple/>
                                     <input type="submit" value='Submit'/>
                                 <h3>Welcome to <br /> Your Account.</h3>
+                                <img src={userAvatar} className="user-avatar" alt="user-avatar"/>
                             </div>
                         </Route>
                         <Route path={`${path}/info`} component={MyInfo}/>

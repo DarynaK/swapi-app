@@ -71,10 +71,33 @@
           border: 5px solid rgba(255, 255, 255, 0.5);
           font-size: 35px;
         }
-        .user-avatar {
-          width: 200px;
-          height: 200px;
-          border-radius: 50%;
+        .avatar-container {
+          position: relative;
+          .user-avatar {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+          }
+          #files {
+            width: 91px;
+            height: 20px;
+            padding: 2px 5px;
+            position: absolute;
+            top: 48%;
+            left: 32%;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            &::-webkit-file-upload-button {
+              visibility: hidden;
+            }
+            &::before {
+              content: 'Upload photo';
+              color: rgba(255, 255, 255, 0.5);;
+              font-size: 15px;
+              font-weight: 500;
+            }
+          }
         }
       }
     }

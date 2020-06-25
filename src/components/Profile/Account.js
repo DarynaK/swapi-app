@@ -72,10 +72,11 @@ const Account = () => {
                     <Switch>
                         <Route exact path={path}>
                             <div className="account-introduction">
+                                <div className="avatar-container">
                                     <input type="file" id="files" onChange={uploadFile} name="files[]" multiple/>
-                                    <input type="submit" value='Submit'/>
+                                    <img src={userAvatar} className="user-avatar" alt="user-avatar"/>
+                                </div>
                                 <h3>Welcome to <br /> Your Account.</h3>
-                                <img src={userAvatar} className="user-avatar" alt="user-avatar"/>
                             </div>
                         </Route>
                         <Route path={`${path}/info`} component={MyInfo}/>

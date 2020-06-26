@@ -88,7 +88,7 @@ const Account = () => {
                             <div className="account-introduction">
                                 <div className="avatar-container">
                                     <input type="file" id="files" onChange={uploadFile} name="files[]" multiple/>
-                                    <button onClick={deleteAvatar}>Delete</button>
+                                    <button onClick={deleteAvatar} className="avatar-delete-button">Delete</button>
                                     <div className="user-avatar" style={{display:userAvatar!==''?'none':'flex'}}>
                                         <p className="user-initials">
 

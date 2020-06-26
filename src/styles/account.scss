@@ -80,6 +80,20 @@
             border-radius: 50%;
             background-color: olive;
           }
+          .avatar-delete-button {
+            width: 69px;
+            height: 28px;
+            position: absolute;
+            bottom: 3%;
+            left: -1%;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            background-color: transparent;
+            font-size: 15px;
+            font-weight: 500;
+            outline: none;
+          }
           #files {
             width: 55px;
             height: 20px;
@@ -96,7 +110,7 @@
             }
             &::before {
               content: '+ photo';
-              color: rgba(255, 255, 255, 0.6);;
+              color: rgba(255, 255, 255, 0.6);
               font-size: 15px;
               font-weight: 500;
             }

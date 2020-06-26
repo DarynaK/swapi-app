@@ -5,6 +5,7 @@ import '../../styles/my-info.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import InputMask from 'react-input-mask';
 
 const MyInfo = () => {
 
@@ -121,7 +122,6 @@ const MyInfo = () => {
             setsavedData({
                 savedModal: false,
             });
-            // console.log('Not saved');
         }
     };
 
@@ -166,7 +166,7 @@ const MyInfo = () => {
                         </label>
                         {accountValError.emailError&&<span className='account-error'>{accountValError.emailError}</span>}
                         <label htmlFor="phone" className='label-name'>
-                            <input type="number" className='account-input' placeholder='Phone' name='phone' value={accountForm.phone} onChange={getAccountData}/>
+                            <InputMask mask="+3(050) 99 999 99" maskChar="_" className='account-input' placeholder='Phone' name='phone' value={accountForm.phone} onChange={getAccountData}/>;
                         </label>
                         <label htmlFor="country" className='label-name'>
                             <input type="text" className='account-input' placeholder='Country' name='country' value={accountForm.country} onChange={getAccountData}/>

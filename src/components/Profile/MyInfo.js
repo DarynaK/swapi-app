@@ -166,7 +166,7 @@ const MyInfo = () => {
                         </label>
                         {accountValError.emailError&&<span className='account-error'>{accountValError.emailError}</span>}
                         <label htmlFor="phone" className='label-name'>
-                            <InputMask mask="+3(050) 99 999 99" maskChar="_" className='account-input' placeholder='Phone' name='phone' value={accountForm.phone} onChange={getAccountData}/>;
+                            <InputMask mask="+3(050) 99 999 99" maskChar="_" className='account-input' placeholder='Phone' name='phone' value={accountForm.phone} onChange={getAccountData}/>
                         </label>
                         <label htmlFor="country" className='label-name'>
                             <input type="text" className='account-input' placeholder='Country' name='country' value={accountForm.country} onChange={getAccountData}/>

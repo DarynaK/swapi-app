@@ -12,6 +12,7 @@ import 'firebase/storage';
 
 const Account = () => {
     let { path, url } = useRouteMatch();
+    const userAvatarName = useSelector(state => state.firebase.profile.avatarName);
     const userName = useSelector(state => state.firebase.profile.name);
     const userAvatar = useSelector(state => state.firebase.profile.avatar);
     const uId = useSelector(state => state.firebase.auth.uid);
@@ -28,8 +29,21 @@ const Account = () => {
             storageRef.child(file.name).getDownloadURL().then(function (url) {
                 docRef.set({
                     'avatar': url,
+                    'avatarName': file.name,
                 },{ merge: true }).then(res => console.log('saved logo'));
             });
+        });
+    };
+
+    const deleteAvatar = () => {
+
+        let storageRef = firebase.storage().ref();
+        storageRef.child(userAvatarName).delete().then(function() {
+            docRef.update({
+                'avatar': '',
+                'avatarName': '',
+            }).then(res => console.log('delete logo'));
+        }).catch(function(error) {
         });
     };
 
@@ -74,7 +88,13 @@ const Account = () => {
                             <div className="account-introduction">
                                 <div className="avatar-container">
                                     <input type="file" id="files" onChange={uploadFile} name="files[]" multiple/>
-                                    <img src={userAvatar} className="user-avatar" alt="user-avatar"/>
+                                    <button onClick={deleteAvatar}>Delete</button>
+                                    <div className="user-avatar" style={{display:userAvatar!==''?'none':'flex'}}>
+                                        <p className="user-initials">
+
+                                        </p>
+                                    </div>
+                                    <img src={userAvatar} className="user-avatar" alt="user-avatar" style={{display:userAvatar===''?'none':'flex'}}/>
                                 </div>
                                 <h3>Welcome to <br /> Your Account.</h3>
                             </div>

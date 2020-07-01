@@ -26,6 +26,7 @@ const fbConfig = {
 
 const rrfConfig = {
     userProfile: 'users',
+    trails: 'trails',
     useFirestoreForProfile: true,
 };
 

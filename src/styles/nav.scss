@@ -16,7 +16,7 @@
       text-decoration: none;
       font-size: 1.4em;
       font-weight: 400;
-      color: rgba(255, 255, 255, .5);
+      color: #28311b;
       position: relative;
 
       &::after {
@@ -24,14 +24,14 @@
         height: 1px;
         display: block;
         content: '';
-        background: #ffffff;
+        background: #506336;
         position: absolute;
         left: 0;
         transition: .5s ease;
       }
 
       &:hover {
-        color: #ffffff;
+        color: #506336;
 
         &::after {
           width: 100%;
@@ -44,9 +44,9 @@
       width: 138px;
       padding: 5px 0;
       font-size: 1.3em;
-      color: rgba(255, 255, 255, .5);
+      color: #28311b;
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, .5);
+      border: 1px solid #28311b;
       border-radius: 20px;
       height: auto;
       display: flex;
@@ -56,8 +56,8 @@
       cursor: pointer;
 
       &:hover {
-        color: #ffffff;
-        border: 1px solid #ffffff;
+        color: #506336;
+        border: 1px solid #506336;
       }
     }
   }

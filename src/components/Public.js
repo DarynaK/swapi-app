@@ -1,16 +1,9 @@
 import React from "react";
-import firebase from "firebase";
-import '../styles/trails.scss'
+import { Link } from 'react-router-dom';
+import '../styles/trails.scss';
 
 
 const Public = () => {
-    const db = firebase.firestore();
-    const docRef = db.collection("hiking");
-
-    docRef.get().then(function(doc) {
-        console.log(doc.docs);
-           return doc.docs.map(doc=>console.log(doc.data()));
-    });
     return (
         <div className="trails-container">
             <div className="trails-header">
@@ -30,7 +23,7 @@ const Public = () => {
                             Ще одна позитивна риса цього виду активного відпочинку – пішохідний спорт не вимагає суттєвих
                             фінансових вкладень, особливо в літню пору.
                         </p>
-                        <button className="tr-button">Перейти</button>
+                        <Link to='/trails-list/hiking'>Go to</Link>
                     </div>
                 </div>
                 <div className="bike-side">
@@ -47,7 +40,7 @@ const Public = () => {
                             мета)
                             та які фізичні даним володіє.
                         </p>
-                        <button className="tr-button">Перейти</button>
+                        <Link to='/trails-list/bike'>Go to</Link>
                     </div>
                 </div>
             </div>

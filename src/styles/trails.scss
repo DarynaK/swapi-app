@@ -65,5 +65,14 @@
       font-size: 24px;
       text-decoration: underline;
     }
+    .trails-page-button {
+      padding: 5px 32px;
+      color: #000000;
+      text-decoration: none;
+      border: 1px solid #000000;
+      &:hover {
+        background-color: rgba(135, 164, 91, .1);
+      }
+    }
   }
 }

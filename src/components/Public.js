@@ -23,7 +23,7 @@ const Public = () => {
                             Ще одна позитивна риса цього виду активного відпочинку – пішохідний спорт не вимагає суттєвих
                             фінансових вкладень, особливо в літню пору.
                         </p>
-                        <Link to='/trails-list/hiking'>Go to</Link>
+                        <Link to='/trails-list/hiking' className='trails-page-button'>Перейти</Link>
                     </div>
                 </div>
                 <div className="bike-side">
@@ -40,7 +40,7 @@ const Public = () => {
                             мета)
                             та які фізичні даним володіє.
                         </p>
-                        <Link to='/trails-list/bike'>Go to</Link>
+                        <Link to='/trails-list/bike' className='trails-page-button'>Перейти</Link>
                     </div>
                 </div>
             </div>

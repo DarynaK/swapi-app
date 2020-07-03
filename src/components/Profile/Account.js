@@ -1,5 +1,5 @@
 import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
-import React, {useState} from "react";
+import React from "react";
 import MyLists from './MyLists'
 import MyInfo from './MyInfo';
 import { useSelector } from 'react-redux';

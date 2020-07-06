@@ -29,6 +29,7 @@ const TrailsList = props => {
             </div>
             {trailsArr !== null &&
             <div className="hiking-wrapper">
+                <div className="hiking-wrapper-content">
                 {
                     trailsArr.trailsArr.map((el, key) => {
                         return (
@@ -41,10 +42,14 @@ const TrailsList = props => {
                                     </div>
                                     <button className="hi-button">Перейти</button>
                                 </div>
+                                <div className="img-side">
+                                    <img src={el.header_img} alt="trails-img"/>
+                                </div>
                             </div>
                         );
                     })
                 }
+                </div>
             </div>
             }
         </div>

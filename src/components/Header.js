@@ -10,7 +10,7 @@ const Header = (props) => {
     const firebase = useFirebase();
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
-    console.log(props.scrollValue)
+
     const logOut = () => {
         firebase.auth().signOut()
             .then(() => dispatch(userLogOut()));

@@ -6,12 +6,14 @@ import SignUp from './components/Auth/SignUp';
 import { useSelector } from 'react-redux'
 import Account from './components/Profile/Account'
 import TrailsList from "./components/TrailsList";
+import Trail from "./components/Trail";
 
 const Router = (props) => (
     <div>
         <Switch>
             <Route exact path='/public' component={Public}/>
             <Route exact path='/trails-list/:id' component={TrailsList}/>
+            <Route exact path='/trail/:id' component={Trail}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/sign-up' component={SignUp}/>
             <PrivateRoute path="/account" component={Account}/>

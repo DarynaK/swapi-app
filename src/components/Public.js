@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import '../styles/trails.scss';
 
-
 const Public = () => {
     return (
         <div className="trails-container">

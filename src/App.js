@@ -6,12 +6,14 @@ import './styles/main.scss'
 import {
     BrowserRouter as Router,
 } from "react-router-dom";
+import useScrollInfo from 'react-element-scroll-hook';
 
 function App() {
+    const [scrollInfo, setRef] = useScrollInfo();
         return (
-            <div className="App">
+            <div className="App scrollbar" ref={setRef}>
                 <Router>
-                    <Header/>
+                    <Header scrollValue={scrollInfo.y.value}/>
                     <Routes/>
                 </Router>
             </div>

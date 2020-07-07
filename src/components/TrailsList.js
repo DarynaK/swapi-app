@@ -40,7 +40,7 @@ const TrailsList = props => {
                                     <div className="hi-about-container">
                                         <p className="hi-about">{el.about}</p>
                                     </div>
-                                    <button className="hi-button">Перейти</button>
+                                    <a className="hi-button">Перейти</a>
                                 </div>
                                 <div className="img-side">
                                     <img src={el.header_img} alt="trails-img"/>

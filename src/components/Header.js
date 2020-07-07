@@ -5,11 +5,12 @@ import {useFirebase} from "react-redux-firebase";
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogOut} from '../store/actions/auth';
 
-const Header = () => {
+const Header = (props) => {
     const isLoggedIn = useSelector(state => state.firebase.profile.isEmpty);
     const firebase = useFirebase();
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
+    console.log(props.scrollValue)
     const logOut = () => {
         firebase.auth().signOut()
             .then(() => dispatch(userLogOut()));
@@ -20,7 +21,7 @@ const Header = () => {
     };
 
         return(
-            <div className={isOpen?'nav-container open':'nav-container'}>
+            <div className={isOpen?'nav-container open':'nav-container'} style={{background:props.scrollValue>100?'#ffffff':null}}>
                 <div className="mobile-nav-container" onClick={openMobNav}>
                     <div className={isOpen?'icon-line line-one':'icon-line'}>
 
